@@ -1,38 +1,63 @@
-# OpsIntel
+<div align="center">
 
-OpsIntel is a product in the AI Productivity Suite.
+# 🧠 OpsIntel
 
-## Promise
+**AI operations intelligence brief generator — turn your operational data into decision-ready insights.**
 
-Turn operational noise into the brief that tells leaders what to do next.
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Visit-6366f1?style=for-the-badge)](https://opsintel.vercel.app)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![MIT License](https://img.shields.io/badge/License-MIT-34d399?style=for-the-badge)](LICENSE)
 
-OpsIntel is an operations intelligence room for founders and operators who need signal, risk, blockers, and decisions across projects, teams, and systems.
+</div>
 
-## Current v1
+---
 
-- Bespoke product cockpit UI
-- Live product-specific intake
-- `POST /api/intelligence`
-- Product-specific scoring and action queue
-- Contributor mission lanes
-- Mobile-friendly layout
+## ✨ Features
 
-## Contributor Missions
+- 📊 **Ops brief generator** — paste raw status updates, logs, or notes and get a structured intelligence brief
+- 🚦 **Status classification** — AI sorts issues into Critical / Blocked / In Progress / Done automatically
+- 🔍 **Risk surfacing** — highlights dependencies and blockers that need immediate attention
+- 📋 **Executive summary output** — formatted for a standup, board update, or incident report
+- 🔄 **Multi-source synthesis** — combine input from Slack, tickets, emails into one coherent brief
+- 📥 **Export to PDF or markdown** — ready to share in seconds
+- ⚡ **No setup required** — paste data in, get intelligence out
 
-- Live source connectors: Ingest ops notes from docs, tickets, and dashboards.
-- Owner accountability model: Map actions to owners and due dates.
-- Executive digest: Send a daily/weekly operations brief.
-- Ops memory: Remember repeated failure patterns and fixes.
+---
 
-## Run Locally
+## 🚀 Quick Start
 
 ```bash
+git clone https://github.com/jayblast-spec/opsintel.git
+cd opsintel
 npm install
 npm run dev
 ```
 
-## Build
+Open [http://localhost:3000](http://localhost:3000)
 
-```bash
-npm run build
-```
+---
+
+## 🛠 Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js 14 (App Router) |
+| Language | TypeScript |
+| AI | Groq |
+| Styling | Tailwind CSS |
+| Deployment | Vercel |
+
+---
+
+## 📦 Deploy Your Own
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/jayblast-spec/opsintel)
+
+Required env vars: `GROQ_API_KEY`
+
+---
+
+## 📄 License
+
+MIT © [Joy Ogunleye](https://github.com/jayblast-spec) · Built with [ArkNet Forge](https://arknet-os.vercel.app)
