@@ -110,7 +110,7 @@ export default function BriefBuilder() {
   const ready = context.trim().length >= 40 && industry && focusAreas.length > 0 && urgency;
 
   return (
-    <div className="mx-auto max-w-6xl px-4 pb-24">
+    <div className="ops-brief-builder mx-auto max-w-6xl px-4 pb-24">
       <div className="grid gap-6 lg:grid-cols-[2fr_3fr] lg:items-start">
 
         {/* LEFT: Input panel */}
