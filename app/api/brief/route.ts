@@ -34,6 +34,36 @@ export type IntelBrief = {
   finalStrategicPosition: string;
 };
 
+
+const INDUSTRY_LENSES: Record<string, string> = {
+  "Technology / SaaS": "SaaS lens: ARR/MRR, activation, onboarding, churn, product velocity, support load, data security, uptime, pricing, founder-led sales, PLG motion, integrations, roadmap discipline, and customer success handoff.",
+  "Finance & Banking": "Finance lens: liquidity, controls, audit trails, fraud exposure, regulatory reporting, customer trust, risk appetite, treasury operations, reconciliation, approval workflows, and executive governance.",
+  "Healthcare": "Healthcare lens: patient safety, care pathways, clinical workflow, privacy, staffing pressure, compliance, claims/admin burden, referral leakage, care quality, appointment flow, and operational risk around human wellbeing.",
+  "Retail & E-commerce": "Retail lens: inventory, conversion, basket size, returns, fulfillment, customer support, paid acquisition, merchandising, seasonal demand, supplier reliability, checkout friction, and repeat purchase behavior.",
+  "Logistics & Supply Chain": "Logistics lens: route efficiency, on-time delivery, fleet/vendor performance, warehouse flow, exception handling, shipment visibility, demand volatility, cost per delivery, and delay escalation.",
+  "Energy & Utilities": "Energy lens: uptime, asset reliability, field operations, safety, load forecasting, regulatory obligations, maintenance windows, grid/facility resilience, outage response, and infrastructure modernization.",
+  "Government & Public Sector": "Public-sector lens: citizen trust, procurement, policy compliance, transparency, service delivery, interdepartmental coordination, budget accountability, data governance, and political/stakeholder risk.",
+  "Education": "Education lens: learner outcomes, enrollment, attendance, curriculum delivery, parent/student communication, staff workload, safeguarding, funding, digital access, and institutional reputation.",
+  "Manufacturing": "Manufacturing lens: throughput, downtime, quality control, scrap rate, supplier reliability, safety, equipment maintenance, workforce scheduling, demand planning, and process standardization.",
+  "Media & Entertainment": "Media lens: audience attention, content pipeline, production schedule, rights/IP, monetization, distribution channels, creator/talent management, brand partnerships, and audience retention."
+};
+
+const FOCUS_LENSES: Record<string, string> = {
+  "Logistics & Operations": "Logistics & Operations focus: process maps, bottlenecks, cycle time, handoffs, routing, SLA misses, exception queues, capacity planning, owner assignment, and daily operating cadence.",
+  "Finance & Reporting": "Finance & Reporting focus: cash flow, revenue leakage, margin, budgets, reconciliations, billing, payment collection, reporting lag, approvals, dashboards, and financial controls.",
+  "Customer Operations": "Customer Operations focus: onboarding, support queues, response time, satisfaction, retention, escalation paths, feedback loops, renewal risk, service quality, and trust recovery.",
+  "Technology Infrastructure": "Technology Infrastructure focus: uptime, security, data architecture, integrations, observability, backup/recovery, automation, API reliability, technical debt, and platform scalability.",
+  "People & HR Systems": "People & HR Systems focus: role clarity, hiring, onboarding, accountability, training, performance rhythm, incentives, leadership bandwidth, culture, and succession risk.",
+  "Compliance & Governance": "Compliance & Governance focus: decision rights, audit trails, policies, data privacy, approvals, regulatory exposure, vendor risk, documentation, accountability, and board/leadership reporting.",
+  "Energy & Facilities": "Energy & Facilities focus: asset uptime, maintenance, safety, utility cost, facility reliability, outage planning, usage monitoring, vendor coordination, and physical infrastructure risk.",
+  "Product Development": "Product Development focus: roadmap, customer discovery, sprint discipline, launch readiness, feature adoption, QA, pricing validation, product analytics, feedback loops, and technical/product tradeoffs."
+};
+
+function buildContextLenses(industry: string, focusAreas: string[]) {
+  const industryLens = INDUSTRY_LENSES[industry] ?? "General operations lens: strategy, execution cadence, owner accountability, customer value, operational risk, and measurable outcomes.";
+  const focusLens = focusAreas.map((area) => FOCUS_LENSES[area]).filter(Boolean).join("\n");
+  return `${industryLens}\n${focusLens}`;
+}
 const DEMO: IntelBrief = {
   title: "Scaling SmartInvite: Founder Operating Structure and Market Activation Plan",
   classification: "STRATEGIC",
@@ -158,10 +188,10 @@ const DEMO: IntelBrief = {
 
 const SYSTEM = `You are OpsIntel, a senior operating strategist for founders, operators, and executive teams. You produce founder-grade strategic operating briefs, not shallow AI summaries.
 
-Your output should feel like a decisive operating memo: direct, specific, useful, and grounded in measurable execution. Write with the judgment of a CEO coach, McKinsey operating partner, product strategist, and systems architect.
+Your output should feel like a decisive operating memo: direct, specific, useful, and grounded in measurable execution. Write with the judgment of a CEO coach, McKinsey operating partner, product strategist, and systems architect. Every brief must adapt to the selected industry and every selected operational focus area; do not reuse the same KPI logic across different industries.
 
 Non-negotiable standards:
-- Be specific to the user's company, product, industry, urgency, and focus areas.
+- Be specific to the user's company, product, industry, urgency, and focus areas. Use the supplied industry lens and focus-area lenses as mandatory context.
 - Identify what is already working, what is structurally missing, and what must happen next.
 - Convert vague ambition into roles, KPIs, operating cadence, risks, and next actions.
 - Give realistic numbers where possible, but do not invent private facts as if verified.
@@ -241,13 +271,18 @@ export async function POST(request: Request) {
     return Response.json({ demo: true, brief: DEMO });
   }
 
+  const contextLenses = buildContextLenses(industry, focusAreas);
+
   const prompt = `Intelligence brief request:
 - Organisation context: ${context.trim().slice(0, 3500)}
 - Industry: ${industry}
 - Operational focus areas: ${focusAreas.join(", ")}
 - Brief type / urgency: ${urgency}
 
-Generate a full strategic operating brief at the richness of a founder operating memo. The output must be practical enough for the user to act on today.`;
+Mandatory industry and focus-area intelligence lenses:
+${contextLenses}
+
+Generate a full strategic operating brief at the richness of a founder operating memo. The output must be practical enough for the user to act on today. Make the operating model, KPIs, risks, control rules, and action plan visibly different for this industry/focus combination.`;
 
   try {
     const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
