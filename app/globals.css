@@ -419,3 +419,58 @@ button, textarea, select { font: inherit; }
     grid-template-columns: 1fr;
   }
 }
+/* Restore visible selected/clickable states for OpsIntel controls. */
+.ops-brief-builder button {
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+  transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease, transform 160ms ease, color 160ms ease;
+}
+
+.ops-brief-builder button:not(:disabled):hover {
+  transform: translateY(-1px);
+  border-color: rgba(103,232,249,0.55) !important;
+  box-shadow: 0 0 0 1px rgba(103,232,249,0.12), 0 14px 34px rgba(37,99,235,0.16);
+}
+
+.ops-brief-builder button:not(:disabled):active {
+  transform: translateY(0);
+}
+
+.ops-brief-builder button.border-accent,
+.ops-brief-builder button.bg-accent-soft,
+.ops-brief-builder button[class*="border-accent"] {
+  border-color: rgba(103,232,249,0.95) !important;
+  background: linear-gradient(135deg, rgba(37,99,235,0.42), rgba(103,232,249,0.16)) !important;
+  color: #f6f8fb !important;
+  box-shadow: 0 0 0 1px rgba(103,232,249,0.28), 0 18px 44px rgba(37,99,235,0.22) !important;
+}
+
+.ops-brief-builder button.border-accent::after,
+.ops-brief-builder button.bg-accent-soft::after,
+.ops-brief-builder button[class*="border-accent"]::after {
+  content: "";
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: #67e8f9;
+  box-shadow: 0 0 14px rgba(103,232,249,0.85);
+}
+
+.ops-brief-builder button.border-accent span,
+.ops-brief-builder button.bg-accent-soft span,
+.ops-brief-builder button[class*="border-accent"] span,
+.ops-brief-builder button.border-accent p,
+.ops-brief-builder button.bg-accent-soft p,
+.ops-brief-builder button[class*="border-accent"] p {
+  color: #f6f8fb !important;
+}
+
+.ops-brief-builder button:disabled {
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
