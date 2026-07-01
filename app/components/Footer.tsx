@@ -22,7 +22,7 @@ const CURRENT = "OpsIntel";
 export default function Footer() {
   const others = ALL_TOOLS.filter((t) => t.name !== CURRENT);
   return (
-    <footer className="border-t border-border px-4 py-16">
+    <footer className="ops-footer border-t border-border px-4 py-16">
       <div className="mx-auto max-w-4xl">
         <p className="text-xs font-semibold uppercase tracking-widest text-muted mb-6">More free tools</p>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
