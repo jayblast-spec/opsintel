@@ -262,3 +262,160 @@ button, textarea, select { font: inherit; }
     justify-content: center;
   }
 }
+/* Stable OpsIntel brief builder restore. */
+.ops-brief-builder {
+  width: min(100%, 76rem);
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4rem) 1rem 6rem;
+}
+
+.ops-brief-builder > div {
+  display: grid;
+  grid-template-columns: minmax(18rem, 0.78fr) minmax(0, 1.22fr);
+  gap: 1.6rem;
+  align-items: start;
+}
+
+.ops-brief-builder > div > div:first-child,
+.ops-brief-builder > div > div:last-child > div {
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 1.25rem;
+  background: rgba(16, 23, 32, 0.88);
+  box-shadow: 0 22px 70px rgba(0,0,0,0.28);
+}
+
+.ops-brief-builder > div > div:first-child {
+  position: sticky;
+  top: 1.5rem;
+  padding: 1.25rem;
+}
+
+.ops-brief-builder p {
+  margin-top: 0;
+}
+
+.ops-brief-builder textarea,
+.ops-brief-builder select {
+  width: 100%;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 0.9rem;
+  background: rgba(21,31,43,0.96);
+  color: #f6f8fb;
+  padding: 0.85rem 0.95rem;
+  outline: none;
+  line-height: 1.55;
+}
+
+.ops-brief-builder textarea::placeholder {
+  color: rgba(143,155,170,0.72);
+}
+
+.ops-brief-builder textarea:focus,
+.ops-brief-builder select:focus {
+  border-color: rgba(103,232,249,0.55);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.16);
+}
+
+.ops-brief-builder button {
+  min-height: 2.55rem;
+}
+
+.ops-brief-builder > div > div:first-child > button:last-child {
+  width: 100%;
+  min-height: 3rem;
+  border: 0;
+  border-radius: 0.9rem;
+  background: #2563eb;
+  color: white;
+  font-weight: 750;
+}
+
+.ops-brief-builder > div > div:first-child > div {
+  margin-bottom: 1.15rem;
+}
+
+.ops-brief-builder > div > div:first-child p:first-child {
+  color: #67e8f9;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.73rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ops-brief-builder > div > div:last-child {
+  min-width: 0;
+}
+
+.ops-brief-builder > div > div:last-child > div {
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.ops-brief-builder [class*="grid-cols-2"] button,
+.ops-brief-builder [class*="space-y"] button {
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 0.75rem;
+  background: rgba(21,31,43,0.88);
+  color: #c8d2df;
+  padding: 0.7rem 0.75rem;
+}
+
+.ops-brief-builder [class*="grid-cols-2"] button:hover,
+.ops-brief-builder [class*="space-y"] button:hover {
+  border-color: rgba(103,232,249,0.36);
+}
+
+.ops-footer {
+  border-top: 1px solid rgba(255,255,255,0.10);
+  background: #080a0f;
+  padding: 4rem 1rem;
+}
+
+.ops-footer > div {
+  width: min(100%, 64rem);
+  margin: 0 auto;
+}
+
+.ops-footer .grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.ops-footer a,
+.ops-footer .grid > div {
+  display: block;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 0.85rem;
+  background: rgba(16, 23, 32, 0.72);
+  padding: 0.85rem;
+}
+
+@media (max-width: 900px) {
+  .ops-brief-builder > div {
+    grid-template-columns: 1fr;
+  }
+  .ops-brief-builder > div > div:first-child {
+    position: static;
+  }
+  .ops-footer .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .ops-brief-builder {
+    padding: 2rem 0.9rem 4rem;
+  }
+  .ops-brief-builder > div {
+    gap: 1rem;
+  }
+  .ops-brief-builder > div > div:first-child,
+  .ops-brief-builder > div > div:last-child > div {
+    border-radius: 1rem;
+    padding: 1rem;
+  }
+  .ops-footer .grid {
+    grid-template-columns: 1fr;
+  }
+}
