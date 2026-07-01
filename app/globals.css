@@ -73,3 +73,192 @@ button, textarea, select { font: inherit; }
     transition-duration: 0.001ms !important;
   }
 }
+/* Stable OpsIntel hero restore: explicit layout so the page does not depend on fragile utility generation. */
+.ops-hero {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5.5rem 1rem 6rem;
+  text-align: center;
+}
+
+.ops-hero-glow {
+  pointer-events: none;
+  position: absolute;
+  left: 50%;
+  top: 32%;
+  width: min(28rem, 80vw);
+  height: min(28rem, 80vw);
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.12);
+  filter: blur(90px);
+}
+
+.ops-hero-inner {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 48rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.35rem;
+}
+
+.ops-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  max-width: 100%;
+  padding: 0.42rem 0.8rem;
+  border: 1px solid rgba(37, 99, 235, 0.36);
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.16);
+  color: #67e8f9;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: clamp(0.62rem, 2.8vw, 0.75rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.ops-title {
+  margin: 0;
+  color: #f6f8fb;
+  font-size: clamp(2.15rem, 8vw, 4.75rem);
+  line-height: 1.02;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+}
+
+.ops-title span {
+  background: linear-gradient(90deg, #3b82f6, #67e8f9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.ops-subtitle {
+  width: min(100%, 42rem);
+  margin: 0;
+  color: #aab4c2;
+  font-size: clamp(0.98rem, 2.6vw, 1.12rem);
+  line-height: 1.72;
+}
+
+.ops-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.ops-primary-button {
+  min-height: 2.9rem;
+  border: 0;
+  border-radius: 0.8rem;
+  background: #2563eb;
+  color: white;
+  padding: 0 1.7rem;
+  font-size: 0.92rem;
+  font-weight: 750;
+  cursor: pointer;
+  box-shadow: 0 16px 34px rgba(37, 99, 235, 0.22);
+}
+
+.ops-actions span {
+  color: #8f9baa;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.78rem;
+}
+
+.ops-terminal {
+  width: min(100%, 28rem);
+  margin-top: 0.35rem;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 1rem;
+  background: rgba(16, 23, 32, 0.88);
+  box-shadow: 0 28px 80px rgba(0,0,0,0.42);
+  padding: 1rem;
+  text-align: left;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.76rem;
+}
+
+.ops-terminal-top,
+.ops-terminal-row {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.ops-terminal-top {
+  margin-bottom: 0.7rem;
+}
+
+.ops-terminal-top span,
+.ops-terminal-row span {
+  color: rgba(143, 155, 170, 0.62);
+}
+
+.ops-terminal-row {
+  margin-top: 0.4rem;
+}
+
+.ops-terminal-row span:first-child {
+  width: 9rem;
+  flex: 0 0 auto;
+}
+
+.ops-dot { width: 0.58rem; height: 0.58rem; border-radius: 999px; }
+.ops-dot.danger { background: rgba(251, 113, 133, 0.7); }
+.ops-dot.warn { background: rgba(251, 191, 36, 0.7); }
+.ops-dot.success { background: rgba(52, 211, 153, 0.7); }
+.ops-cyan { color: #67e8f9; }
+.ops-green { color: #34d399; }
+.ops-red { color: #fb7185; }
+.ops-gold { color: #fbbf24; }
+
+.ops-scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 1.4rem;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  color: #8f9baa;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+}
+
+.ops-scroll-cue div {
+  width: 1px;
+  height: 1rem;
+  background: rgba(143, 155, 170, 0.55);
+}
+
+@media (max-width: 640px) {
+  .ops-hero {
+    min-height: auto;
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+  }
+  .ops-hero-inner { gap: 1.05rem; }
+  .ops-terminal {
+    display: none;
+  }
+  .ops-scroll-cue {
+    display: none;
+  }
+  .ops-kicker {
+    white-space: normal;
+    justify-content: center;
+  }
+}
