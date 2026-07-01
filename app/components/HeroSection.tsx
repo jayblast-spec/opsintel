@@ -4,92 +4,61 @@ import { motion } from "framer-motion";
 
 export default function HeroSection({ onBriefClick }: { onBriefClick: () => void }) {
   return (
-    <section className="intel-bg scan-grid relative flex min-h-screen flex-col items-center justify-center px-4 text-center overflow-hidden">
+    <section className="ops-hero intel-bg scan-grid">
       <div className="scan-line" />
-      <div className="pointer-events-none absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 h-96 w-96 rounded-full bg-accent/8 blur-[120px]" />
+      <div className="ops-hero-glow" />
 
-      <motion.div
-        
-        className="relative z-10 flex max-w-3xl flex-col items-center gap-6"
-      >
-        <motion.div
-          
-          className="flex items-center gap-2 rounded-full border border-accent/30 bg-accent-soft px-4 py-1.5 text-xs font-semibold text-accent-2 font-mono tracking-wider"
-        >
+      <div className="ops-hero-inner">
+        <div className="ops-kicker">
           <motion.span animate={{ opacity: [1, 0, 1] }} transition={{ repeat: Infinity, duration: 1.2 }}>◉</motion.span>
           INTELLIGENCE LIVE · AI-POWERED · FREE ACCESS
-        </motion.div>
+        </div>
 
-        <motion.h1
-          
-          className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl"
-        >
+        <h1 className="ops-title">
           Intelligence briefings
           <br />
-          <span className="bg-gradient-to-r from-accent to-accent-2 bg-clip-text text-transparent">
-            for your operations.
-          </span>
-        </motion.h1>
+          <span>for your operations.</span>
+        </h1>
 
-        <motion.p
-          
-          className="max-w-xl text-base text-muted sm:text-lg"
-        >
+        <p className="ops-subtitle">
           Infrastructure is no longer passive. Describe your operations and OpsIntel generates
           a classified-level strategic brief — gaps, recommendations, immediate actions,
           and risk signals — in seconds.
-        </motion.p>
+        </p>
 
-        <motion.div
-          
-          className="flex flex-col items-center gap-3 sm:flex-row"
-        >
-          <button
-            onClick={onBriefClick}
-            className="rounded-xl bg-accent px-8 py-3.5 text-sm font-semibold text-white hover:opacity-90 active:scale-95 transition-all"
-          >
+        <div className="ops-actions">
+          <button onClick={onBriefClick} className="ops-primary-button">
             Generate my brief →
           </button>
-          <span className="text-xs text-muted font-mono">Describe ops · Get briefed · Act</span>
-        </motion.div>
+          <span>Describe ops · Get briefed · Act</span>
+        </div>
 
-        {/* Terminal-style preview */}
-        <motion.div
-          
-          className="mt-2 w-full max-w-md rounded-2xl border border-border bg-surface p-4 text-left shadow-2xl font-mono text-xs"
-        >
-          <div className="flex items-center gap-1.5 mb-3">
-            <div className="h-2.5 w-2.5 rounded-full bg-danger/60" />
-            <div className="h-2.5 w-2.5 rounded-full bg-warn/60" />
-            <div className="h-2.5 w-2.5 rounded-full bg-success/60" />
-            <span className="ml-2 text-muted/50 text-[10px]">OPERATIONS INTELLIGENCE BRIEF</span>
+        <div className="ops-terminal">
+          <div className="ops-terminal-top">
+            <div className="ops-dot danger" />
+            <div className="ops-dot warn" />
+            <div className="ops-dot success" />
+            <span>OPERATIONS INTELLIGENCE BRIEF</span>
           </div>
           {[
-            { label: "CLASSIFICATION", value: "STRATEGIC", color: "text-accent-2" },
-            { label: "SIGNAL STRENGTH", value: "STRONG", color: "text-success" },
-            { label: "GAPS IDENTIFIED", value: "5 critical", color: "text-danger" },
-            { label: "RECOMMENDATIONS", value: "5 sequenced", color: "text-warn" },
-            { label: "IMMEDIATE ACTIONS", value: "4 x 30-day tasks", color: "text-accent-2" },
-          ].map((row, i) => (
-            <motion.div
-              key={i}
-              
-              className="flex items-center gap-2 mb-1.5"
-            >
-              <span className="text-muted/50 w-36 flex-shrink-0">{row.label}</span>
-              <span className={`${row.color}`}>{row.value}</span>
-            </motion.div>
+            { label: "CLASSIFICATION", value: "STRATEGIC", tone: "cyan" },
+            { label: "SIGNAL STRENGTH", value: "STRONG", tone: "green" },
+            { label: "GAPS IDENTIFIED", value: "5 critical", tone: "red" },
+            { label: "RECOMMENDATIONS", value: "5 sequenced", tone: "gold" },
+            { label: "IMMEDIATE ACTIONS", value: "4 x 30-day tasks", tone: "cyan" },
+          ].map((row) => (
+            <div key={row.label} className="ops-terminal-row">
+              <span>{row.label}</span>
+              <strong className={`ops-${row.tone}`}>{row.value}</strong>
+            </div>
           ))}
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
-      <motion.div
-        
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-muted"
-      >
-        <span className="text-xs font-mono">SCROLL TO BRIEF</span>
-        <motion.div animate={{ y: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 1.4 }} className="h-4 w-px bg-muted/50" />
-      </motion.div>
+      <div className="ops-scroll-cue">
+        <span>SCROLL TO BRIEF</span>
+        <motion.div animate={{ y: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 1.4 }} />
+      </div>
     </section>
   );
 }
