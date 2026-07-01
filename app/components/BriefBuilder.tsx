@@ -18,6 +18,7 @@ const FOCUS_AREAS = [
 ];
 
 const URGENCY_OPTIONS = [
+  { id: "Startup Strategy", label: "Startup Strategy", sub: "Founder, MVP, growth, pricing, team, and launch decisions" },
   { id: "Strategic Planning", label: "Strategic Planning", sub: "Annual / long-range planning cycle" },
   { id: "Quarterly Review", label: "Quarterly Review", sub: "QBR or board preparation" },
   { id: "Active Transformation", label: "Active Transformation", sub: "Mid-initiative, need course correction" },
