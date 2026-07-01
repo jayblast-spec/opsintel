@@ -61,5 +61,3 @@ Required env vars: `GROQ_API_KEY`
 ## 📄 License
 
 MIT © [ArkNet.digital](https://www.arknet.digital/vault.html)
-
-<!-- restore-workflow-deploy: 2026-07-01T173737Z -->
