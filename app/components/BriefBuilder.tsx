@@ -56,9 +56,7 @@ function useTypeIn(text: string, active: boolean) {
 function BriefSection({ title, delay, children }: { title: string; delay: number; children: React.ReactNode }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay, duration: 0.4 }}
+      
       className="mb-6"
     >
       <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent/70 mb-2 border-b border-border pb-1">{title}</p>
@@ -199,7 +197,7 @@ export default function BriefBuilder() {
         <div ref={docRef}>
           <AnimatePresence>
             {state === "idle" && (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex flex-col items-center justify-center py-24 text-center">
+              <motion.div  className="flex flex-col items-center justify-center py-24 text-center">
                 <div className="h-16 w-16 rounded-2xl border border-border bg-surface flex items-center justify-center text-3xl mb-4">📋</div>
                 <p className="font-semibold text-foreground">Your intelligence brief will appear here</p>
                 <p className="text-sm text-muted mt-1">Fill in the mission context on the left and click generate.</p>
@@ -207,14 +205,14 @@ export default function BriefBuilder() {
             )}
 
             {state === "loading" && (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="rounded-2xl border border-border bg-surface p-8">
+              <motion.div  className="rounded-2xl border border-border bg-surface p-8">
                 <div className="flex items-center gap-3 mb-6">
                   <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 2, ease: "linear" }} className="h-5 w-5 rounded-full border-2 border-accent border-t-transparent" />
                   <span className="text-sm text-accent-2 font-mono">ANALYSING OPERATIONAL INTELLIGENCE...</span>
                 </div>
                 <div className="space-y-3">
                   {["Parsing mission context", "Identifying intelligence gaps", "Formulating strategic recommendations", "Calibrating risk signals", "Compiling brief"].map((s, i) => (
-                    <motion.div key={s} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.4 }} className="flex items-center gap-2">
+                    <motion.div key={s}  transition={{ delay: i * 0.4 }} className="flex items-center gap-2">
                       <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1.5, delay: i * 0.3 }} className="h-1.5 w-1.5 rounded-full bg-accent" />
                       <span className="text-xs text-muted font-mono">{s}...</span>
                     </motion.div>
@@ -224,7 +222,7 @@ export default function BriefBuilder() {
             )}
 
             {state === "done" && brief && (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-2xl border border-doc-border bg-doc-bg overflow-hidden">
+              <motion.div  className="rounded-2xl border border-doc-border bg-doc-bg overflow-hidden">
                 {/* Document header */}
                 <div className="border-b border-border bg-surface px-6 py-4">
                   <div className="flex items-center justify-between flex-wrap gap-3">
@@ -260,7 +258,7 @@ export default function BriefBuilder() {
                   <BriefSection title="Intelligence Gaps Identified" delay={0.6}>
                     <div className="space-y-2">
                       {brief.intelligenceGaps?.map((gap, i) => (
-                        <motion.div key={i} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.7 + i * 0.1 }} className="flex gap-2">
+                        <motion.div key={i}  className="flex gap-2">
                           <span className="text-danger flex-shrink-0 text-xs mt-0.5">▸</span>
                           <span className="text-muted text-sm font-sans">{gap}</span>
                         </motion.div>
@@ -271,7 +269,7 @@ export default function BriefBuilder() {
                   <BriefSection title="Strategic Recommendations" delay={1.0}>
                     <div className="space-y-2">
                       {brief.strategicRecommendations?.map((rec, i) => (
-                        <motion.div key={i} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.1 + i * 0.1 }} className="flex gap-2">
+                        <motion.div key={i}  className="flex gap-2">
                           <span className="text-accent-2 flex-shrink-0 font-bold text-xs mt-0.5">{i + 1}.</span>
                           <span className="text-muted text-sm font-sans">{rec}</span>
                         </motion.div>
@@ -283,7 +281,7 @@ export default function BriefBuilder() {
                     <BriefSection title="Immediate Actions (30 days)" delay={1.4}>
                       <div className="space-y-2">
                         {brief.immediateActions?.map((action, i) => (
-                          <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 + i * 0.1 }} className="flex gap-2">
+                          <motion.div key={i}  transition={{ delay: 1.5 + i * 0.1 }} className="flex gap-2">
                             <span className="text-success flex-shrink-0 text-xs mt-0.5">✓</span>
                             <span className="text-muted text-xs font-sans">{action}</span>
                           </motion.div>
@@ -294,7 +292,7 @@ export default function BriefBuilder() {
                     <BriefSection title="Risk Factors" delay={1.6}>
                       <div className="space-y-2">
                         {brief.riskFactors?.map((risk, i) => (
-                          <motion.div key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.7 + i * 0.1 }} className="flex gap-2">
+                          <motion.div key={i}  transition={{ delay: 1.7 + i * 0.1 }} className="flex gap-2">
                             <span className="text-warn flex-shrink-0 text-xs mt-0.5">⚠</span>
                             <span className="text-muted text-xs font-sans">{risk}</span>
                           </motion.div>
