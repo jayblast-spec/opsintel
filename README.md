@@ -33,9 +33,18 @@ OpsIntel synthesizes raw operational input — status updates, logs, tickets, or
 ## How It Works
 
 - `app/page.tsx` renders the landing shell with `HeroSection` and the `BriefBuilder` input component.
-- `app/api/brief/route.ts` sends the submitted operational notes to the Groq Chat Completions API (`llama-3.3-70b-versatile`) and returns the classified, structured brief.
-- `app/api/intelligence/route.ts` provides a supporting formatting pass over the generated brief.
+- `app/api/brief/route.ts` sends the submitted operational notes to the Groq Chat Completions API (`llama-3.3-70b-versatile`) against a typed `IntelBrief` schema, falling back to a fixed demo brief when no API key is set.
 - Styling is Tailwind CSS with Framer Motion handling interface transitions; the app is a single Next.js App Router deployment with no database layer.
+
+## Engineering Notes
+
+**The real problem:** a raw ops data dump (status updates, metrics, incident notes) doesn't tell a reader what to *do* — the useful output classifies and prioritizes, it doesn't just reformat.
+
+**The approach:** `brief/route.ts` prompts against a typed `IntelBrief` schema that forces the model to classify and structure the input rather than return a reworded paragraph, so the same shape comes back every time regardless of how messy the input notes were.
+
+**One real number:** the demo fallback (no `GROQ_API_KEY`) is a fully worked, structured brief — not a placeholder — so the product is honestly demoable without a key.
+
+**Not handled yet:** `app/api/intelligence` is a separate, disconnected decorative endpoint, not a real formatting pass on the generated brief.
 
 ## Live
 
