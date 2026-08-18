@@ -1,3 +1,5 @@
+import { completeWithFallback } from "@/lib/ai-fallback";
+
 export const maxDuration = 30;
 
 export type IntelBrief = {
@@ -91,12 +93,6 @@ export async function POST(request: Request) {
     return Response.json({ error: "Add more context — describe your operations in at least a sentence." }, { status: 400 });
   }
 
-  const apiKey = process.env.GROQ_API_KEY;
-  if (!apiKey) {
-    await new Promise((r) => setTimeout(r, 2000));
-    return Response.json({ demo: true, brief: DEMO });
-  }
-
   const prompt = `Intelligence brief request:
 - Organisation context: ${context.trim().slice(0, 2000)}
 - Industry: ${industry}
@@ -106,26 +102,7 @@ export async function POST(request: Request) {
 Generate a classified operations intelligence brief for this organisation's leadership team.`;
 
   try {
-    const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: "llama-3.3-70b-versatile",
-        messages: [
-          { role: "system", content: SYSTEM },
-          { role: "user", content: prompt },
-        ],
-        temperature: 0.35,
-        max_tokens: 2000,
-      }),
-    });
-
-    if (!groqRes.ok) {
-      return Response.json({ error: "AI service unavailable. Try again shortly." }, { status: 502 });
-    }
-
-    const data = await groqRes.json();
-    const raw = data?.choices?.[0]?.message?.content ?? "";
+    const { content: raw } = await completeWithFallback(SYSTEM, prompt, { temperature: 0.35, maxTokens: 2000 });
 
     let brief: IntelBrief;
     try {
@@ -136,7 +113,11 @@ Generate a classified operations intelligence brief for this organisation's lead
     }
 
     return Response.json({ demo: false, brief });
-  } catch {
-    return Response.json({ error: "Something went wrong. Try again." }, { status: 502 });
+  } catch (err) {
+    if (err instanceof Error && err.message.includes("No AI provider is configured")) {
+      await new Promise((r) => setTimeout(r, 2000));
+      return Response.json({ demo: true, brief: DEMO });
+    }
+    return Response.json({ error: "AI service unavailable. Try again shortly." }, { status: 502 });
   }
 }
