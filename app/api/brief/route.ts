@@ -114,10 +114,8 @@ Generate a classified operations intelligence brief for this organisation's lead
 
     return Response.json({ demo: false, brief });
   } catch (err) {
-    if (err instanceof Error && err.message.includes("No AI provider is configured")) {
-      await new Promise((r) => setTimeout(r, 2000));
-      return Response.json({ demo: true, brief: DEMO });
-    }
-    return Response.json({ error: "AI service unavailable. Try again shortly." }, { status: 502 });
+    console.error("completeWithFallback failed:", err instanceof Error ? err.message : err);
+    await new Promise((r) => setTimeout(r, 1500));
+    return Response.json({ demo: true, brief: DEMO });
   }
 }
