@@ -7,7 +7,6 @@
 OpsIntel takes raw status updates, logs, or notes from Slack, tickets, or email and turns them into a structured operations intelligence brief — status classified into Critical, Blocked, In Progress, and Done, with risks and dependencies surfaced automatically for whoever has to act on them next.
 
 <p>
-  <a href="https://opsintel-delta.vercel.app"><img alt="Live Demo" src="https://img.shields.io/badge/Live-Demo-1D4ED8?style=for-the-badge&logo=vercel&logoColor=white"></a>
   <a href="https://github.com/jayblast-spec/opsintel"><img alt="GitHub Repo" src="https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white"></a>
 </p>
 
@@ -48,7 +47,7 @@ OpsIntel synthesizes raw operational input — status updates, logs, tickets, or
 
 ## Live
 
-[opsintel-delta.vercel.app](https://opsintel-delta.vercel.app)
+*(demo temporarily offline)*
 
 ## Tech Stack
 
